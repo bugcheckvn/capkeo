@@ -1,0 +1,50 @@
+﻿<!doctype html>
+<html lang="en" ng-app="FieldApp">
+<head>
+    <meta charset="utf-8">
+    <title>Tìm Sân</title>
+    <link rel="stylesheet" href="bootstrap.min.css">    
+    <link rel="stylesheet" href="app.css">
+    <script src="angular.min.js"></script>    
+</head>
+<body ng-controller="FieldCtrl">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <!--Sidebar content-->
+                <input type="button" class="btn btn-md btn-info" value="Vị trí hiện tại" ng-click="getCurrentPosition()" />
+                <p>
+                    <span>Lat:</span><span>{{currentPosition.lat}}</span><br/>
+                    <span>Lng:</span><span>{{currentPosition.lng}}</span>
+                    <span>{{geoLocErr}}</span>
+                </p>
+                <p>
+                    <input type="button" class="btn btn-lg btn-info" value="Tìm sân" ng-click="getFields()" />
+                </p>
+                <a href="addfield.html">Thêm sân</a>
+            </div>
+            <div class="col-md-3">
+                <!--Body content-->
+                <h4>Các sân gần với vị trí hiện tại:</h4>
+                <ul class="phones">
+                    <li ng-repeat="field in fields">
+                        <span>{{field.name}}</span>                        
+                        <p>
+                            {{field.phone}}
+                            <br /> {{field.addr}}
+                            <br />{{field.lat}},{{field.lng}}
+                            <br /> <input type="button" class="btn btn-md btn-success"  value="Xem trên bản đồ" ng-click="viewOnMap(field)"/>
+                        </p>                        
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-7">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
