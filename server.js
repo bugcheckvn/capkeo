@@ -1,6 +1,7 @@
 
 var express = require('express');
 var fs = require('fs');
+var path = require('path');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
 var Field = require('./field.js');
@@ -13,9 +14,9 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-app.get('/', function (request, response) {
-    response.sendFile(__dirname + '/public/index.html');
-});
+//app.get('/', function (request, response) {
+//    response.sendFile('Index.html');
+//});
 
 app.route('/fields')
     .post(function (request, response) {
@@ -41,7 +42,7 @@ app.route('/fields')
 
 app.get('/search', function (request, response) {
     console.log(request.url);    
-    var limit = 15, // 10 item 
+    var limit = 7, // 10 item 
         maxDistance = parseFloat(request.query.maxdistance); // 3 km
     console.log(request.query.lng + '\t' + request.query.lat + '\t' + maxDistance);
     /*

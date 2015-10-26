@@ -1,7 +1,7 @@
 ﻿
 var app = angular.module('FieldApp', []);
 
-app.controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
+app.controller('FieldCtrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
 
     $scope.field = {};
     $scope.fields = [];
@@ -13,6 +13,7 @@ app.controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
                 //console.log(position.coords);
                 $scope.$apply(function () {
                     $scope.currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude };
+                    createMarker({ name: 'Vị trí của bạn', location: $scope.currentPosition });
                 });                
             });
         }
@@ -38,7 +39,7 @@ app.controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
     $scope.viewOnMap = function (field) {
-        console.log(field);
+        createMarker({ name: field.name, location: { lat: field.lat, lng: field.lng } });
     }
 
     $scope.saveField = function () {
@@ -59,9 +60,32 @@ app.controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
         }, function (err) {
             //console.log(err);
             $scope.message = 'Thất bại. Vui lòng thử lại!';
+        });        
+    }
+    
+    $window.initMap = function initMap() {
+        var chuvanan = { lat: 10.93957, lng: 106.82459639999999 };
+
+        $scope.map = new google.maps.Map(document.getElementById('map'), {
+            center: chuvanan,
+            zoom: 15
+        });               
+
+        $scope.infowindow = new google.maps.InfoWindow();
+    }
+
+    function createMarker(place) {
+        var marker = new google.maps.Marker({
+            map: $scope.map,
+            position: place.location
         });
-        //console.log($scope.currentPosition);
-        //console.log($scope.field);
+
+        google.maps.event.addListener(marker, 'click', function () {            
+            $scope.infowindow.setContent(place.name);
+            $scope.infowindow.open($scope.map, this);
+        });
     }
 
 }]);
+
+

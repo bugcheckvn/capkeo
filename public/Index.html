@@ -6,6 +6,18 @@
     <link rel="stylesheet" href="bootstrap.min.css">    
     <link rel="stylesheet" href="app.css">
     <script src="angular.min.js"></script>    
+    <style>
+        html, body {
+            height: 100%;            
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body ng-controller="FieldCtrl">
 
@@ -13,7 +25,7 @@
         <div class="row">
             <div class="col-md-2">
                 <!--Sidebar content-->
-                <input type="button" class="btn btn-md btn-info" value="Vị trí hiện tại" ng-click="getCurrentPosition()" />
+                <input type="button" class="btn btn-md btn-info" value="Vị trí của bạn" ng-click="getCurrentPosition()" />
                 <p>
                     <span>Lat:</span><span>{{currentPosition.lat}}</span><br/>
                     <span>Lng:</span><span>{{currentPosition.lng}}</span>
@@ -26,25 +38,22 @@
             </div>
             <div class="col-md-3">
                 <!--Body content-->
-                <h4>Các sân gần với vị trí hiện tại:</h4>
+                <h4>Các sân gần với vị trí của bạn:</h4>
                 <ul class="phones">
                     <li ng-repeat="field in fields">
                         <span>{{field.name}}</span>                        
-                        <p>
-                            {{field.phone}}
-                            <br /> {{field.addr}}
-                            <br />{{field.lat}},{{field.lng}}
-                            <br /> <input type="button" class="btn btn-md btn-success"  value="Xem trên bản đồ" ng-click="viewOnMap(field)"/>
-                        </p>                        
+                        <br/> {{field.addr}}                            
+                        <br /> <input type="button" class="btn btn-sm btn-success"  value="Xem trên bản đồ" ng-click="viewOnMap(field)"/>                                             
                     </li>
                 </ul>
             </div>
-            <div class="col-md-7">
-
+            <div class="col-md-7" >                          
+                <div id="map"></div>  
             </div>
         </div>
-    </div>
-
-    <script src="app.js"></script>
+    </div>        
+        
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcyZTsELUIShB1ySsKM5JUfBA2BcK7C_w&signed_in=true&libraries=places&callback=initMap" async defer></script>
+    <script src="app.js"></script> 
 </body>
 </html>
