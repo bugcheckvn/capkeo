@@ -14,9 +14,13 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-//app.get('/', function (request, response) {
-//    response.sendFile('Index.html');
-//});
+app.get('/', function (request, response) {
+    response.sendFile(__dirname + '/public/Index.html');
+});
+
+app.get('/addfield', function (request, response) {
+    response.sendFile(__dirname + '/public/AddField.html');
+});
 
 app.route('/fields')
     .post(function (request, response) {
