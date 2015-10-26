@@ -85,38 +85,6 @@ app.get('/search', function (request, response) {
     
 });
 
-/*
-app.get('/removeall', function (request, response) {
-    Field.remove({}, function (err) {
-        if (err)
-            response.send(err);
-        else
-            response.send('done');
-    });    
-});
-*/
-
-app.listen(3000, function () {
-    /*
-    fs.readFile('./samples.txt', 'utf8', function (err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            var locations = JSON.parse(data.trim());
-            locations.data.forEach(function (item) {
-                var field = new Field({
-                    loc: { type: 'Point', coordinates: [item.lng, item.lat] },
-                    name: item.name,
-                    phone: item.phone
-                });
-                field.save(function (err) {
-                    if (err)
-                        console.log(item + "\n+++ Error:" + err);
-                });
-            });
-        }
-    });
-    */
-    //Field.remove({}, function (err) { console.log(err); });
+app.listen(80, function () {  
     console.log('server listening on port 3000');
 });
